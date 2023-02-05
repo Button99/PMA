@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layouts::head"></head>
+<body>
+    <nav th:replace="layouts::navbar"></nav>
+
+    <div class="container-md">
+        <form action="/employees/save" th:object="${employee}" method="POST">
+            <input type="text" placeholder="Employee Name:" th:field="${employee.firstName}"><br/>
+            <input type="text" placeholder="Employee Last name:" th:field="${employee.lastName}"><br/>
+            <input type="text" placeholder="Employee email:" th:field="${employee.email}"><br/>
+            <button type="submit" class="ui-button">Create Project</button>
+        </form>
+    </div>
+</body>
+</html>
