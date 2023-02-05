@@ -1,11 +1,10 @@
 package com.koumpis.pma.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,4 +17,16 @@ public class Project {
     private String stage; // ENUM -> NOTSTARTED, COMPLETED, INPROGRESS
     private String description;
 
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+            fetch = FetchType.LAZY)
+    @JoinTable(name="project_employee", joinColumns = @JoinColumn(name="project_id"), inverseJoinColumns= {@JoinColumn(name="employee_id")})
+    private List<Employee> employees;
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 }
