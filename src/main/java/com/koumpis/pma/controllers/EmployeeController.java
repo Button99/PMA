@@ -1,6 +1,7 @@
 package com.koumpis.pma.controllers;
 
 import com.koumpis.pma.entities.Employee;
+import com.koumpis.pma.repositories.EmployeeProject;
 import com.koumpis.pma.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,10 @@ public class EmployeeController {
     @GetMapping(value = "/ShowEmployees")
     public String showEmployees(Model model) {
         List<Employee> employeeList = employeeRepository.findAll();
+        List<EmployeeProject> employeeProjects= employeeRepository.employeeProjects();
         model.addAttribute("employees", employeeList);
+        model.addAttribute("employeesProject", employeeProjects);
+
         return "employees/EmployeesList";
     }
 
