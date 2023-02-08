@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
     private Long employeeId;
 
     private String firstName;
