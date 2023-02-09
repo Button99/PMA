@@ -18,11 +18,6 @@ public class HomeController {
     @Value("${version}")
     private String ver;
 
-    @Autowired
-    ProjectRepository projectRepository;
-
-    @Autowired
-    EmployeeRepository employeeRepository;
     @GetMapping("/")
     public String displayHome(Model model) {
         model.addAttribute("version", ver);
