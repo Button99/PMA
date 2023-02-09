@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koumpis.pma.entities.Employee;
 import com.koumpis.pma.entities.Project;
 import com.koumpis.pma.repositories.ChartData;
-import com.koumpis.pma.repositories.EmployeeRepository;
-import com.koumpis.pma.repositories.ProjectRepository;
+import com.koumpis.pma.services.EmployeeService;
+import com.koumpis.pma.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +23,15 @@ import java.util.Map;
 public class ProjectController {
 
     @Autowired
-    ProjectRepository projectRepository;
+    ProjectService projectService;
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeService employeeService;
 
     @GetMapping(value = "/new")
     public String displayProjectForm(Model model) {
         Project project= new Project();
-        List<Employee> employeeList= employeeRepository.findAll();
+        List<Employee> employeeList= employeeService.getAll();
         model.addAttribute("project", project);
         model.addAttribute("allEmployees", employeeList);
         return "projects/NewProject";
@@ -39,8 +39,8 @@ public class ProjectController {
 
     @GetMapping(value = "/ShowProjects")
     public String showProjects(Model model) throws JsonProcessingException {
-        List<Project> projectList = projectRepository.findAll();
-        List<ChartData> projectData= projectRepository.getProjectStatus();
+        List<Project> projectList = projectService.getAll();
+        List<ChartData> projectData= projectService.getProjectStatus();
         Map<String, Object> map= new HashMap<>();
         ObjectMapper objectMapper= new ObjectMapper();
         String jsonString= objectMapper.writeValueAsString(projectData);
@@ -52,7 +52,7 @@ public class ProjectController {
 
     @PostMapping(value = "/save")
     public String createProject(Project project, Model model) {
-        projectRepository.save(project);
+        projectService.save(project);
         return "redirect:/projects/new";
     }
 }
