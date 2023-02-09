@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
 @NoArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
+    @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
     private Long employeeId;
 
     private String firstName;

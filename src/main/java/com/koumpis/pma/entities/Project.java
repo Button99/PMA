@@ -8,12 +8,12 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @NoArgsConstructor
 @Entity
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_seq")
+    @SequenceGenerator(name = "project_seq", sequenceName = "project_seq", allocationSize = 1)
     private Long projectId;
     private String name;
     private String stage; // ENUM -> NOTSTARTED, COMPLETED, INPROGRESS
